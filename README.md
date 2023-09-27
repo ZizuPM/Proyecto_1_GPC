@@ -145,5 +145,82 @@ Debido a que sus servidores estarán expuestos en Internet, deberán de realizar
 * CDN: es una plataforma de servidores altamente distribuida que ayuda a minimizar los retrasos en la carga de contenidos de páginas web al reducir la distancia física entre el servidor y el usuario. De esta manera, usuarios de todo el mundo puedan visualizar el mismo contenido de alta calidad sin tiempos de carga lentos. *Akamai*
 
 
+
 ## Rúbrica de calificación
-Elementos a evaluar.
+
+Registros DNS (27 pts)            | No se hizo (0 pts) | No se hizo en la CDN (1 pts) | Se hizo en la CDN, configuración incorrecta (2 pts) | Se hizo en la CDN, configuración correcta (3 pts) |
+---------------------------------|--------------------|------------------------------|------------------------------------------------------|---------------------------------------------------|
+Registro A (Web Server)          |                    |                              |                                                      |                                                   |
+Registro AAAA (Web Server)       |                    |                              |                                                      |                                                   |
+Registro CNAME (Web Server)    	 |                    |                              |                                                      |                                                   |
+Registro A (Email Server)        |                    |                              |                                                      |                                                   |
+Registro AAAA (Email Server)     |                    |                              |                                                      |                                                   |
+Registro PTR (Email Server)*     |                    |                              |                                                      |                                                   |
+Registro MX                      |                    |                              |                                                      |                                                   |
+Registro TXT (datos de SPF)      |                    |                              |                                                      |                                                   |
+Registro TXT (datos de DKIM)     |                    |                              |                                                      |                                                   |
+
+Proxy web (20 pts)                           | No se hizo (0 pts) | Configuración incorrecta (2 pts) | Configuración correcta (4 pts) |
+---------------------------------------------|--------------------|----------------------------------|--------------------------------|
+Configuración del Reverse Proxy              |                    |                                  |                                |
+Certificado de Let's Encrypt                 |                    |                                  |                                |
+Redirecciona de HTTP a HTTPS                 |                    |                                  |                                |
+No permite listar ni directorios ni archivos |                    |                                  |                                |
+Se puede consultar con IPv6                  |                    |                                  |                                |
+Está configurado con HTTP2                   |                    |                                  |                                |
+
+App server (28 pts + 10 pts extras)                 |                    |                       |
+----------------------------------------------------|--------------------|-----------------------|
+Se tiene una aplicación                             | No (0 pts)         | Si (4 pts)            |
+No permite SQLi                                     | Lo permite (0 pts) | No lo permite (8 pts) |
+No permite XSS                                      | Lo permite (0 pts) | No lo permite (8 pts) |
+Funcionalidad de autenticación                      | No (0 pts)         | Si (4 pts)            |
+Sólo permite conexiones del Proxy Web y Data Server | No (0 pts)         | Si (4 pts)            |
+La aplicación tiene más funcionalidades             | No (0 pts)         | Si (10 pts extras)    |
+
+Data server (32 pts)                                            | No se hizo (0 pts) | Configuración incorrecta (2 pts) |  Configuración correcta (8 pts) |
+----------------------------------------------------------------|--------------------|----------------------------------|---------------------------------|
+No almacena las contraseñas en claro                            |                    |                                  |                                 |
+Sólo permite conexiones desde el App Server                     |                    |                                  |                                 |
+Conexiones cifradas a la base de datos                          |                    |                                  |                                 |
+Usuario único y restringido para las consultas de la aplicación |                    |                                  |                                 |
+
+Configuración de la CDN (12 pts)          |                    |                                  |                                |                     |
+-----------------------------------------|--------------------|----------------------------------|--------------------------------|---------------------|
+Reglas de CDN (*Cloudflare Pages rules*) | No se hizo (0 pts) | Configuración incorrecta (1 pts) | Configuración correcta (6 pts) |                     |
+End-to-end HTTPS, SSL options            | Off (0 pts)        | Flexible (1 pts)                 | Full (4 pts)                   | Full strict (6 pts) |
+
+Otras configuraciones de seguridad (8 pts)   | No se hizo (0 pts) | En algunas instancias (1 pts) |  En todas las instancias (4 pts) |
+---------------------------------------------|--------------------|-------------------------------|----------------------------------|
+No permite la conexión remota por SSH a root |                    |                               |                                  |
+Uso de fail2ban                              |                    |                               |                                  |
+
+Email server (8 pts)                         | No se hizo (0 pts) | En algunas instancias (1 pts) |  En todas las instancias (4 pts) |
+---------------------------------------------|--------------------|-------------------------------|----------------------------------|
+Envía correo electrónico                     |
+Recibe correo electrónico                    |
+Se puede consultar con IPv6                  |
+Sin Open Relay                               |
+SMTPS con certificados de Let's Encrypt      |
+Configurado con IMAP                         |
+Configurado con POP3                         |
+Conexión con un cliente de correo            |
+Configurado con IMAPS                        |
+Configurado con POP3S                        |
+Consulta web del correo                      |
+
+Documentación (12 pts)                     | No lo incluye (0 pts) | Incompleto (1 pts) | Completo (2 pts) |
+-------------------------------------------|-----------------------|--------------------|------------------|
+Diagrama de red con direcciones IP         |                       |                    |                  |
+Registros DNS configurados                 |                       |                    |                  |
+Configuración Proxy Web                    |                       |                    |                  |
+Configuración App server                   |                       |                    |                  |
+Configuración Data server                  |                       |                    |                  |
+Configuración Email server                 |                       |                    |                  |
+Esquema de la DB o almacenamiento de datos |                       |                    |                  |
+Descripción de la aplicación               |                       |                    |                  |
+Manual de uso de la aplicación             |                       |                    |                  |
+Comentarios sobre el proyecto              |                       |                    |                  |
+Referencias técnicas                       |                       |                    |                  |
+Sin faltas de ortografía                   |                       |                    |                  |
+
